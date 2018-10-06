@@ -4,17 +4,17 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
 import pl.dashboard.nbp.features.dataprovider.dto.NbpExternalApiResponse;
 import pl.dashboard.nbp.features.dataprovider.model.NbpCurrencyDetails;
+import pl.dashboard.nbp.features.util.CentralConfigMapper;
 
 /**
  * @author Dawid Janik
  * @since 2018.10.05
  */
 @Mapper(
-        componentModel = "spring",
+        config = CentralConfigMapper.class,
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
 public interface NbpCurrencyMapper {
-
 
     NbpCurrencyDetails toNbpCurrencyDetails(NbpExternalApiResponse apiResponse);
 }
