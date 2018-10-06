@@ -14,5 +14,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CurrencyTableDetails {
-
+    private String date;
+    private String description;
+    // USD ; [
+    //    @JsonProperty("code")
+    //    private String code;
+    //
+    //    @JsonProperty("bid")
+    //    private Long bid;
+    //
+    //    @JsonProperty("ask")
+    //    private Long ask;
+    // ]
 }

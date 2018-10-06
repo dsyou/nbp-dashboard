@@ -1,4 +1,4 @@
-package pl.dashboard.nbp.features.dataprovider;
+package pl.dashboard.nbp.features.dataprovider.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -18,6 +18,15 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NbpExternalApiData {
 
-    @JsonProperty("")
-    private String us;
+    @JsonProperty("currency")
+    private String currency;
+
+    @JsonProperty("code")
+    private String code;
+
+    @JsonProperty("bid")
+    private Long bid;
+
+    @JsonProperty("ask")
+    private Long ask;
 }

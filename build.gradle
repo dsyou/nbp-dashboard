@@ -26,6 +26,10 @@ repositories {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
+    compile('ch.qos.logback:logback-classic:1.2.3')
     compileOnly('org.projectlombok:lombok')
+    //Mapstruct
+    compile('org.mapstruct:mapstruct-jdk8:1.2.0.Final')
+    annotationProcessor('org.mapstruct:mapstruct-processor:1.2.0.Final')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

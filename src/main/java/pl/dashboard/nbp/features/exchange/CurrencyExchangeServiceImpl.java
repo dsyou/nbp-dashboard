@@ -1,5 +1,6 @@
 package pl.dashboard.nbp.features.exchange;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.dashboard.nbp.features.exchange.dto.CurrencyTableDetails;
@@ -10,6 +11,7 @@ import pl.dashboard.nbp.features.exchange.dto.CurrencyTableDetails;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
 
     @Override
