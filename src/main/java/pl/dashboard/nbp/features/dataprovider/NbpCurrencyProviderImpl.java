@@ -6,10 +6,12 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-import pl.dashboard.nbp.features.dataprovider.dto.NbpExternalApiResponse;
-import pl.dashboard.nbp.features.dataprovider.exception.InvalidDateProblem;
+import pl.dashboard.nbp.features.dataprovider.dto.NbpExternalApiDataResponse;
+import pl.dashboard.nbp.features.dataprovider.mapper.NbpCurrencyMapper;
 import pl.dashboard.nbp.features.dataprovider.model.NbpCurrencyDetails;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,7 +23,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class NbpCurrencyProviderImpl implements NbpCurrencyProvider {
 
-    private static final String NBP_API_ENDPOINT = "http://api.nbp.pl/api/exchangerates/tables/c/today/";
+    private static final String NBP_API_ENDPOINT = "http://api.nbp.pl/api/exchangerates/tables/";
+    private static final String NBP_API_CURRENCY_TABLE = "c/";
 
     private static final int TIMEOUT = 10000;
 
@@ -37,19 +40,11 @@ public class NbpCurrencyProviderImpl implements NbpCurrencyProvider {
 
     @Override
     public NbpCurrencyDetails getNbpRates(String exchangeDate) {
-
-        String verifiedNip = checkDate(exchangeDate)
-                .orElseThrow(() -> new InvalidDateProblem(exchangeDate));
-
         NbpCurrencyDetails nbpCurrencyDetails;
         RestTemplate restTemplate = getRestTemplate();
         Optional<NbpCurrencyDetails> detailsOptional = getNbpRates(exchangeDate, restTemplate);
-        if (detailsOptional.isPresent()) {
-            nbpCurrencyDetails = detailsOptional.get();
-//            nbpCurrencyMapper.toNbpCurrencyDetails(nbpCurrencyDetails);
-        } else {
-            nbpCurrencyDetails = null;
-        }
+
+        nbpCurrencyDetails = detailsOptional.orElseThrow(null); // TODO NULL
         return nbpCurrencyDetails;
     }
 
@@ -63,9 +58,21 @@ public class NbpCurrencyProviderImpl implements NbpCurrencyProvider {
 
     private Optional<NbpCurrencyDetails> getNbpRates(String exchangeDate, RestTemplate restTemplate) {
         try {
-            NbpExternalApiResponse resp = restTemplate.getForObject(NBP_API_ENDPOINT + exchangeDate,
-                    NbpExternalApiResponse.class);
-            return Optional.of(nbpCurrencyMapper.toNbpCurrencyDetails(resp));
+            NbpExternalApiDataResponse[] resp = restTemplate.getForObject(
+                    NBP_API_ENDPOINT + NBP_API_CURRENCY_TABLE + exchangeDate,
+                    NbpExternalApiDataResponse[].class
+            );
+            if (resp == null) {
+                log.error("There is not output from NBP Api"); // + throw
+            }
+
+            List<NbpExternalApiDataResponse> nbpExternalApiDataResponses = Arrays.asList(resp);
+            if (nbpExternalApiDataResponses.size() != 1) {
+                log.error("Incorrect parsing NBP data into NbpCurrencyDetails.class");
+            }
+
+            NbpExternalApiDataResponse nbpExternalApiDataResponse = nbpExternalApiDataResponses.get(0);
+            return Optional.of(nbpCurrencyMapper.toNbpCurrencyDetails(nbpExternalApiDataResponse));
         } catch (RestClientException ex) {
             log.warn("Connection failed to load NBP data from NBP API");
             return Optional.empty();

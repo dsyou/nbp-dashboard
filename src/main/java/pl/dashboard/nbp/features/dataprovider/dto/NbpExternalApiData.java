@@ -25,8 +25,8 @@ public class NbpExternalApiData {
     private String code;
 
     @JsonProperty("bid")
-    private Long bid;
+    private Float bid;
 
     @JsonProperty("ask")
-    private Long ask;
+    private Float ask;
 }

@@ -38,6 +38,10 @@ dependencies {
     compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}" ,  "org.projectlombok:lombok:${lombokVersion}"
     apt "org.mapstruct:mapstruct-processor:${mapstructVersion}",  "org.projectlombok:lombok:${lombokVersion}"
 
-
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
+
+sourceSets {
+    main.java.srcDirs += "build/generated/source/apt/main"
+}
+
