@@ -67,7 +67,7 @@ public class NbpCurrencyProviderImpl implements NbpCurrencyProvider {
                     NbpExternalApiResponse.class);
             return Optional.of(nbpCurrencyMapper.toNbpCurrencyDetails(resp));
         } catch (RestClientException ex) {
-            log.error("Connection failed to load NBP data from NBP API", ex);
+            log.warn("Connection failed to load NBP data from NBP API");
             return Optional.empty();
         }
     }

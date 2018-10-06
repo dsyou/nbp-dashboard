@@ -10,6 +10,7 @@ import pl.dashboard.nbp.features.dataprovider.model.NbpCurrencyDetails;
  * @since 2018.10.05
  */
 @Mapper(
+        componentModel = "spring",
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 )
 public interface NbpCurrencyMapper {

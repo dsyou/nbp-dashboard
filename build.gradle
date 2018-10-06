@@ -10,6 +10,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'net.ltgt.apt' version '0.9'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -23,13 +27,17 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    mapstructVersion = "1.2.0.Final"
+    lombokVersion = "1.18.2"
+}
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
-    compile('ch.qos.logback:logback-classic:1.2.3')
-    compileOnly('org.projectlombok:lombok')
-    //Mapstruct
-    compile('org.mapstruct:mapstruct-jdk8:1.2.0.Final')
-    annotationProcessor('org.mapstruct:mapstruct-processor:1.2.0.Final')
+
+    compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}" ,  "org.projectlombok:lombok:${lombokVersion}"
+    apt "org.mapstruct:mapstruct-processor:${mapstructVersion}",  "org.projectlombok:lombok:${lombokVersion}"
+
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
