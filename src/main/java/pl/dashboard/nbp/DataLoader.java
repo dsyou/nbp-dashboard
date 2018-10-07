@@ -30,10 +30,8 @@ public class DataLoader implements ApplicationRunner {
             log.info("arg-" + name + "=" + args.getOptionValues(name));
         }
 
-        boolean containsOption =  true ;// args.containsOption("exchange.date");
-        log.info("Contains exchange.date: " + containsOption);
         String sourceArg = "";
-        if (containsOption && args.getSourceArgs().length == 1) {
+        if (args.getSourceArgs().length == 1) {
             sourceArg = args.getSourceArgs()[0];
             currencyExchangeService.getCurrencyTableDetailsByDate(sourceArg);
         } else {

@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import static pl.dashboard.nbp.features.util.DateUtils.checkDate;
+
 /**
  * @author Dawid Janik
  * @since 2018.10.05
@@ -40,20 +42,15 @@ public class NbpCurrencyProviderImpl implements NbpCurrencyProvider {
 
     @Override
     public NbpCurrencyDetails getNbpRates(String exchangeDate) {
+
+        String checkedDate = checkDate(exchangeDate);
+
         NbpCurrencyDetails nbpCurrencyDetails;
         RestTemplate restTemplate = getRestTemplate();
-        Optional<NbpCurrencyDetails> detailsOptional = getNbpRates(exchangeDate, restTemplate);
+        Optional<NbpCurrencyDetails> detailsOptional = getNbpRates(checkedDate, restTemplate);
 
-        nbpCurrencyDetails = detailsOptional.orElseThrow(null); // TODO NULL
+        nbpCurrencyDetails = detailsOptional.orElseThrow(RuntimeException::new);
         return nbpCurrencyDetails;
-    }
-
-    private Optional<String> checkDate(String exchangeDate) {
-        String result = null;
-        if (true == true) { // todo dj <-()
-            result = exchangeDate;
-        }
-        return Optional.ofNullable(result);
     }
 
     private Optional<NbpCurrencyDetails> getNbpRates(String exchangeDate, RestTemplate restTemplate) {
@@ -63,7 +60,7 @@ public class NbpCurrencyProviderImpl implements NbpCurrencyProvider {
                     NbpExternalApiDataResponse[].class
             );
             if (resp == null) {
-                log.error("There is not output from NBP Api"); // + throw
+                log.error("There is not output from NBP Api");
             }
 
             List<NbpExternalApiDataResponse> nbpExternalApiDataResponses = Arrays.asList(resp);

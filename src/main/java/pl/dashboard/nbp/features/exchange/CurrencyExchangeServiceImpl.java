@@ -35,8 +35,7 @@ public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
 
     @Override
     public CurrencyTableDetails getCurrencyTableDetailsByDate(String exchangeDate) {
-        log.info("Getting NBP Rates for following date: {}", exchangeDate); // todo reverse string
-        // todo compare dates from param and returning from response
+        log.info("Getting NBP Rates for following date: {}", exchangeDate);
         NbpCurrencyDetails currencyDetails = nbpCurrencyProvider.getNbpRates(exchangeDate);
         List<NbpCurrencyExternalDetails> rates = currencyDetails.getRates();
 

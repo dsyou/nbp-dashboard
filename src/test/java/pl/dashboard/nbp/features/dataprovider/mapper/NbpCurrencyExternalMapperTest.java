@@ -1,6 +1,7 @@
 package pl.dashboard.nbp.features.dataprovider.mapper;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+import org.springframework.util.Assert;
 
 /**
  * @author Dawid Janik
@@ -8,4 +9,10 @@ import static org.junit.Assert.*;
  */
 public class NbpCurrencyExternalMapperTest {
 
+    NbpCurrencyExternalMapper nbpCurrencyExternalMapper = NbpCurrencyExternalMapper.INSTANCE;
+
+    @Test
+    public void toNbpCurrencyExternalDetails() {
+        Assert.notNull(nbpCurrencyExternalMapper, "Mapper not generated");
+    }
 }
