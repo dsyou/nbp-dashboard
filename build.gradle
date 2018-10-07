@@ -32,6 +32,12 @@ ext {
     lombokVersion = "1.18.2"
 }
 
+bootRun {
+    if (project.hasProperty('args')) {
+        args project.args.split(',')
+    }
+}
+
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
 
