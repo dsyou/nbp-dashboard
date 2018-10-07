@@ -60,7 +60,6 @@ public class CurrencyExchangeServiceImpl implements CurrencyExchangeService {
                 .map(currencyMapper::toCurrency)
                 .collect(toSingleton());
 
-
         List<Currency> currencies = Arrays.asList(eur, chf, usd, gbp);
 
         CurrencyTable currencyTable = new CurrencyTable(

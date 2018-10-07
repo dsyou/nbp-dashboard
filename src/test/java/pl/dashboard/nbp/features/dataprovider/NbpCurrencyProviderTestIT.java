@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class NbpCurrencyProviderTest {
+public class NbpCurrencyProviderTestIT {
 
     private static String properDate = "2016-03-30";
     private static String notProperDate = "2016-03-40";
@@ -23,7 +23,7 @@ public class NbpCurrencyProviderTest {
     NbpCurrencyProvider nbpCurrencyProvider;
 
     @Test
-    public void stage0_testDate() {
+    public void testDate() {
         nbpCurrencyProvider.getNbpRates(properDate);
     }
 }

@@ -5,17 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 /**
  * @author Dawid Janik
- * @since 2018.10.05
+ * @since 07.10.2018
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CurrencyTableDetails {
-    private String exchangeDate;
-    private List<CurrencyDetails> currencyDetails;
+public class CurrencyDetails {
+    private String currencyCode;
+    private Float bid;
+    private Float ask;
 }

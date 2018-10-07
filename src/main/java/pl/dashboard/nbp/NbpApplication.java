@@ -2,6 +2,8 @@ package pl.dashboard.nbp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import pl.dashboard.nbp.features.exchange.CurrencyExchangeService;
 
 /**
  * @author Dawid Janik
@@ -11,6 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NbpApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NbpApplication.class, args);
+        ConfigurableApplicationContext ctx = SpringApplication.run(NbpApplication.class, args);
+        CurrencyExchangeService currencyExchangeService = ctx.getBean(CurrencyExchangeService.class);
+
+        currencyExchangeService.getCurrencyTableDetailsByDate("2016-03-30");
     }
 }
