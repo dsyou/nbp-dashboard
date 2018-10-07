@@ -38,6 +38,8 @@ dependencies {
     compile "org.mapstruct:mapstruct-jdk8:${mapstructVersion}" ,  "org.projectlombok:lombok:${lombokVersion}"
     apt "org.mapstruct:mapstruct-processor:${mapstructVersion}",  "org.projectlombok:lombok:${lombokVersion}"
 
+    compile("io.vavr:vavr:0.9.2")
+    
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
